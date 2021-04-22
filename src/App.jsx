@@ -8,7 +8,7 @@ import ParticlesBg from "particles-bg";
 import Clarifai from "clarifai";
 
 const app = new Clarifai.App({
-  apiKey: "f462cceec4324ad69e878059a3d9f8b0",
+  apiKey: process.env.REACT_APP_API_KEY,
 });
 
 class App extends Component {
