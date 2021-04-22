@@ -10,6 +10,7 @@ export default function Logo() {
           style={{
             height: "auto",
             width: "auto",
+            boxShadow: "1px 1px 1px 1px grey",
           }}
         >
           <img src={logo} alt="logo"></img>

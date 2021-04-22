@@ -10,10 +10,10 @@ export default function Rank() {
         alignItems: "center",
       }}
     >
-      <div className="white f3">
+      <div className="green f3">
         <p>Your rank is..</p>
       </div>
-      <div className="white f1">
+      <div className="dark-blue f1">
         <p>#4</p>
       </div>
     </div>
