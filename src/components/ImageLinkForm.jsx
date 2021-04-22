@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ImageLinkForm() {
+export default function ImageLinkForm({ onInputChange, onSubmit }) {
   return (
     <div className="banner">
       <p className="f3">
@@ -14,8 +14,12 @@ export default function ImageLinkForm() {
             style={{ backgroundColor: "white" }}
             className="f4 pa2 w-70 center"
             type="text"
+            onChange={onInputChange}
           />
-          <button className="w-30 grow f4 link ph3  pa2 dib white bg-light-purple">
+          <button
+            className="w-30 grow f4 link ph3  pa2 dib white bg-light-purple"
+            onClick={onSubmit}
+          >
             Detect
           </button>
         </div>
