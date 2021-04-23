@@ -16,6 +16,7 @@ class App extends Component {
     super();
     this.state = {
       input: "",
+      boxes: [],
     };
   }
 
@@ -23,23 +24,39 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
 
-  onSubmit = (event) => {
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-      function (response) {
-        console.log(
-          response.outputs[0].data.regions[0].region_info.bounding_box
-        );
-      },
-      function (error) {
-        console.log(error);
-      }
+  calculationFace = (response) => {
+    var faces = response.outputs[0].data.regions.map(
+      (items) => items.region_info.bounding_box
     );
+    var image = document.getElementById("inputImage");
+    var width = Number(image.width);
+    var height = Number(image.height);
+    var faceBox = faces.map((face) => ({
+      top: face.top_row * height,
+      left: face.left_col * width,
+      right: width - (face.right_col * width),
+      down: height - (face.bottom_row * height),
+    }));
+    console.log(faceBox);
+    this.setState({ boxes: faceBox });
+    console.log(this.state.boxes);
+  };
+
+  onSubmit = (event) => {
+    app.models
+      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .then((response) => {
+        this.calculationFace(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   render() {
     return (
       <div>
-        <ParticlesBg color="blue" num={50} type="cobweb" bg={true} />
+        <ParticlesBg color="rgb(94, 179, 248)" num={50} type="cobweb" bg={true} />
         <Navigation />
         <Logo />
         <Rank />
@@ -47,7 +64,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onSubmit={this.onSubmit}
         />
-        <FaceRecognition url={this.state.input} />
+        <FaceRecognition url={this.state.input} box={this.state.boxes} />
       </div>
     );
   }

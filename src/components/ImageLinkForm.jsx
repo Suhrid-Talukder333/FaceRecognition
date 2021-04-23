@@ -7,6 +7,7 @@ export default function ImageLinkForm({ onInputChange, onSubmit }) {
         This Magic Pizza Guy Will Detect Faces While Eating Pizza, Coool Right
         Yeah..
       </p>
+      <h4>Has to be jpeg,jpg,png</h4>
       <div style={{ height: "3rem" }}></div>
       <div className="back">
         <div className="centered">

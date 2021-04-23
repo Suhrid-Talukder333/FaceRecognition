@@ -29,7 +29,7 @@
     radial-gradient(circle at 0% 50%, #364E27 16%, rgba(54,78,39,0) 17%) 50px 50px;
     background-color:#63773F;
     background-size:100px 100px;
-    box-shadow: 1px 3px 3px 3px rgb(75, 74, 74);
+    box-shadow: 1px 3px 3px 3px rgb(94, 179, 248);
 }
 
 
@@ -40,3 +40,12 @@
     width: 20rem;
     height: 1rem;
 } 
+
+.boundingBox{
+    position: absolute;
+    box-shadow: 0 0 0 3px #149df2 inset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    cursor: pointer;
+}
