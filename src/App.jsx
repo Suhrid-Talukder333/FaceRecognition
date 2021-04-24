@@ -4,6 +4,9 @@ import Logo from "./components/Logo";
 import ImageLinkForm from "./components/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition";
 import Rank from "./components/Rank";
+import SignInForm from "./components/SignInForm";
+import RegisterForm from "./components/RegisterForm";
+
 import ParticlesBg from "particles-bg";
 import Clarifai from "clarifai";
 
@@ -17,7 +20,12 @@ class App extends Component {
     this.state = {
       input: "",
       boxes: [],
+      logger: "unsigned",
     };
+  }
+
+  logUpdate = (value) => {
+    this.setState({ logger: value });
   }
 
   onInputChange = (event) => {
@@ -57,16 +65,25 @@ class App extends Component {
     return (
       <div>
         <ParticlesBg color="rgb(94, 179, 248)" num={50} type="cobweb" bg={true} />
-        <Navigation />
+        <Navigation logUpdate={this.logUpdate} />
         <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onSubmit={this.onSubmit}
-        />
-        <FaceRecognition url={this.state.input} box={this.state.boxes} />
-      </div>
+        {this.state.logger === "unsigned" ?
+          (<SignInForm logUpdate={this.logUpdate} />)
+          : this.state.logger === "register" ? (<>
+            <RegisterForm logUpdate={this.logUpdate} />
+          </>) : (
+            <>
+              <Rank />
+              <ImageLinkForm
+                onInputChange={this.onInputChange}
+                onSubmit={this.onSubmit}
+              />
+              <FaceRecognition url={this.state.input} box={this.state.boxes} />
+            </>
+          )}
+      </div >
     );
   }
 }
 export default App;
+
