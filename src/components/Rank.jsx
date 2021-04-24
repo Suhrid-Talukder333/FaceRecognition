@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Rank() {
+export default function Rank({ name, points }) {
   return (
     <div
       style={{
@@ -11,10 +11,10 @@ export default function Rank() {
       }}
     >
       <div className="green f3">
-        <p>Your rank is..</p>
+        <p>{name} rank is..</p>
       </div>
       <div className="dark-blue f1">
-        <p>#4</p>
+        <p>{points}</p>
       </div>
     </div>
   );

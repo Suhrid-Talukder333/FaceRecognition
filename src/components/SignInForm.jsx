@@ -6,8 +6,13 @@ export default class SignInForm extends Component {
     this.state = {
       email: "",
       password: "",
+      valid: false,
     };
   }
+
+  onSignIn = (value) => {
+    console.log(value);
+  };
 
   onEmailChange = (event) => {
     this.setState({ email: event.target.value });
@@ -17,7 +22,8 @@ export default class SignInForm extends Component {
     this.setState({ password: event.target.value });
   };
 
-  onSubmit = () => {
+  onSubmit = (event) => {
+    event.preventDefault();
     fetch("http://localhost:3001/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -26,8 +32,14 @@ export default class SignInForm extends Component {
         password: this.state.password,
       }),
     })
-      .then(this.props.logUpdate("signedin"))
-      .catch((error) => console.log(error));
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === "success") {
+          this.props.logUpdate("signedin", res.name, res.points);
+        } else {
+          console.log(res);
+        }
+      });
   };
 
   render() {
@@ -70,7 +82,7 @@ export default class SignInForm extends Component {
             <div className="mt3">
               <button
                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
-                onClick={() => logUpdate("register")}
+                onClick={() => logUpdate("register", "", "")}
               >
                 Register
               </button>

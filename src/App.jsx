@@ -21,12 +21,15 @@ class App extends Component {
       input: "",
       boxes: [],
       logger: "unsigned",
+      name: "",
+      rank: "",
     };
   }
 
-  logUpdate = (value) => {
+  logUpdate = (value, name, points) => {
     this.setState({ logger: value });
-  }
+    this.setState({ name: name, rank: points });
+  };
 
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
@@ -42,8 +45,8 @@ class App extends Component {
     var faceBox = faces.map((face) => ({
       top: face.top_row * height,
       left: face.left_col * width,
-      right: width - (face.right_col * width),
-      down: height - (face.bottom_row * height),
+      right: width - face.right_col * width,
+      down: height - face.bottom_row * height,
     }));
     console.log(faceBox);
     this.setState({ boxes: faceBox });
@@ -51,6 +54,15 @@ class App extends Component {
   };
 
   onSubmit = (event) => {
+    console.log(this.state.name);
+    fetch("http://localhost:3001/image", {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: this.state.name,
+      }),
+    }).then(console.log);
+    this.setState({ rank: this.state.rank + 1 });
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then((response) => {
@@ -64,26 +76,32 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ParticlesBg color="rgb(94, 179, 248)" num={50} type="cobweb" bg={true} />
+        <ParticlesBg
+          color="rgb(94, 179, 248)"
+          num={50}
+          type="cobweb"
+          bg={true}
+        />
         <Navigation logUpdate={this.logUpdate} />
         <Logo />
-        {this.state.logger === "unsigned" ?
-          (<SignInForm logUpdate={this.logUpdate} />)
-          : this.state.logger === "register" ? (<>
+        {this.state.logger === "unsigned" ? (
+          <SignInForm logUpdate={this.logUpdate} />
+        ) : this.state.logger === "register" ? (
+          <>
             <RegisterForm logUpdate={this.logUpdate} />
-          </>) : (
-            <>
-              <Rank />
-              <ImageLinkForm
-                onInputChange={this.onInputChange}
-                onSubmit={this.onSubmit}
-              />
-              <FaceRecognition url={this.state.input} box={this.state.boxes} />
-            </>
-          )}
-      </div >
+          </>
+        ) : (
+          <>
+            <Rank name={this.state.name} points={this.state.rank} />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onSubmit={this.onSubmit}
+            />
+            <FaceRecognition url={this.state.input} box={this.state.boxes} />
+          </>
+        )}
+      </div>
     );
   }
 }
 export default App;
-
