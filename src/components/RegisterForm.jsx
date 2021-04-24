@@ -4,7 +4,7 @@ export default function Form({ logUpdate }) {
     return (
         <div>
             <article class="br2 ba dark-gray b--black-10 mv4 w-200 w-50-m w-25-l mw5 center shadow-3 bg-pink">
-                <form action="sign-up_submit" method="get" accept-charset="utf-8">
+                <form acceptCharset="utf-8">
                     <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
                         <legend class="ph0 mh0 fw6 clip">Sign Up</legend>
                         <div class="mt3">

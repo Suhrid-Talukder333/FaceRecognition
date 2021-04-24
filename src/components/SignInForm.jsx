@@ -1,25 +1,83 @@
-import React from 'react'
+import React, { Component } from "react";
 
-export default function Form({ logUpdate }) {
+export default class SignInForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+    };
+  }
+
+  onEmailChange = (event) => {
+    this.setState({ email: event.target.value });
+  };
+
+  onPasswordChange = (event) => {
+    this.setState({ password: event.target.value });
+  };
+
+  onSubmit = () => {
+    fetch("http://localhost:3001/signin", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+      }),
+    })
+      .then(this.props.logUpdate("signedin"))
+      .catch((error) => console.log(error));
+  };
+
+  render() {
+    const { logUpdate } = this.props;
     return (
-        <div>
-            <article class="br2 ba dark-gray b--black-10 mv4 w-200 w-50-m w-25-l mw5 center shadow-3 bg-aqua">
-                <form action="sign-up_submit" method="get" accept-charset="utf-8">
-                    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
-                        <legend class="ph0 mh0 fw6 clip">Sign Up</legend>
-                        <div class="mt3">
-                            <label class="db fw4 lh-copy f6" for="email-address">Email address</label>
-                            <input class="pa2 input-reset ba bg-transparent w-100 measure" type="email" name="email-address" id="email-address" />
-                        </div>
-                        <div class="mt3">
-                            <label class="db fw4 lh-copy f6" for="password">Password</label>
-                            <input class="b pa2 input-reset ba bg-transparent" type="password" name="password" id="password" />
-                        </div>
-                    </fieldset>
-                    <div class="mt3"><input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" onClick={() => logUpdate("signedin")} value="Sign In" /></div>
-                    <div class="mt3"><input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" onClick={() => logUpdate("register")} value="Register" /></div>
-                </form>
-            </article>
-        </div>
-    )
+      <div>
+        <article className="br2 ba dark-gray b--black-10 mv4 w-200 w-50-m w-25-l mw5 center shadow-3 bg-yellow">
+          <form acceptCharset="utf-8">
+            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
+              <legend className="ph0 mh0 fw6 clip">Sign Up</legend>
+              <div className="mt3">
+                <label className="db fw4 lh-copy f6">Email address</label>
+                <input
+                  className="pa2 input-reset ba bg-transparent w-100 measure"
+                  type="email"
+                  name="email-address"
+                  id="email-address"
+                  onChange={this.onEmailChange}
+                />
+              </div>
+              <div className="mt3">
+                <label className="db fw4 lh-copy f6">Password</label>
+                <input
+                  className="b pa2 input-reset ba bg-transparent"
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={this.onPasswordChange}
+                />
+              </div>
+            </fieldset>
+            <div className="mt3">
+              <button
+                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
+                onClick={this.onSubmit}
+              >
+                Sign In
+              </button>
+            </div>
+            <div className="mt3">
+              <button
+                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
+                onClick={() => logUpdate("register")}
+              >
+                Register
+              </button>
+            </div>
+          </form>
+        </article>
+      </div>
+    );
+  }
 }
