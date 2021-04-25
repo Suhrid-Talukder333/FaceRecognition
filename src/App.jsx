@@ -54,15 +54,16 @@ class App extends Component {
   };
 
   onSubmit = (event) => {
-    console.log(this.state.name);
     fetch("http://localhost:3001/image", {
       method: "put",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: this.state.name,
       }),
-    }).then(console.log);
-    this.setState({ rank: this.state.rank + 1 });
+    })
+      .then((data) => data.json())
+      .then((data) => this.setState({rank: data}));
+
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then((response) => {

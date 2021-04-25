@@ -6,7 +6,7 @@ export default class SignInForm extends Component {
     this.state = {
       email: "",
       password: "",
-      valid: false,
+      invalid: false,
     };
   }
 
@@ -37,7 +37,7 @@ export default class SignInForm extends Component {
         if (res.status === "success") {
           this.props.logUpdate("signedin", res.name, res.points);
         } else {
-          console.log(res);
+          this.setState({ invalid: true });
         }
       });
   };
@@ -88,6 +88,7 @@ export default class SignInForm extends Component {
               </button>
             </div>
           </form>
+          {this.state.invalid == true ? <p>INVALID</p> : null}
         </article>
       </div>
     );
