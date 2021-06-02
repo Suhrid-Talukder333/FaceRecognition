@@ -46,14 +46,17 @@ export default class SignInForm extends Component {
     const { logUpdate } = this.props;
     return (
       <div>
-        <article className="br2 ba dark-gray b--black-10 mv4 w-200 w-50-m w-25-l mw5 center shadow-3 bg-yellow">
+        <article
+          style={{ textAlign: "center", padding: "1rem" }}
+          className="br2 ba white b--black-10 mv4 w-200 w-50-m w-25-l mw5 center shadow-3 bg-black"
+        >
           <form acceptCharset="utf-8">
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="ph0 mh0 fw6 clip">Sign Up</legend>
               <div className="mt3">
                 <label className="db fw4 lh-copy f6">Email address</label>
                 <input
-                  className="pa2 input-reset ba bg-transparent w-100 measure"
+                  className="pa2 input-reset ba bg-white w-100 measure"
                   type="email"
                   name="email-address"
                   id="email-address"
@@ -63,7 +66,7 @@ export default class SignInForm extends Component {
               <div className="mt3">
                 <label className="db fw4 lh-copy f6">Password</label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent"
+                  className="b pa2 input-reset ba bg-white"
                   type="password"
                   name="password"
                   id="password"
@@ -73,7 +76,7 @@ export default class SignInForm extends Component {
             </fieldset>
             <div className="mt3">
               <button
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
+                className="b ph3 pv2 input-reset ba b--black bg-white grow pointer f6"
                 onClick={this.onSubmit}
               >
                 Sign In
@@ -81,7 +84,7 @@ export default class SignInForm extends Component {
             </div>
             <div className="mt3">
               <button
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6"
+                className="b ph3 pv2 input-reset ba b--black bg-white grow pointer f6"
                 onClick={() => logUpdate("register", "", "")}
               >
                 Register

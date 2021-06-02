@@ -62,7 +62,7 @@ class App extends Component {
       }),
     })
       .then((data) => data.json())
-      .then((data) => this.setState({rank: data}));
+      .then((data) => this.setState({ rank: data }));
 
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
@@ -78,8 +78,8 @@ class App extends Component {
     return (
       <div>
         <ParticlesBg
-          color="rgb(94, 179, 248)"
-          num={50}
+          color={["random", "rgb(175, 175, 175)"]}
+          num={200}
           type="cobweb"
           bg={true}
         />
