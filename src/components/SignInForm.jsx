@@ -24,7 +24,7 @@ export default class SignInForm extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:3001/signin", {
+    fetch("https://fast-sierra-07084.herokuapp.com//signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -91,7 +91,7 @@ export default class SignInForm extends Component {
               </button>
             </div>
           </form>
-          {this.state.invalid == true ? <p>INVALID</p> : null}
+          {this.state.invalid === true ? <p>INVALID</p> : null}
         </article>
       </div>
     );

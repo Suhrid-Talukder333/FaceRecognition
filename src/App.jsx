@@ -54,7 +54,7 @@ class App extends Component {
   };
 
   onSubmit = (event) => {
-    fetch("http://localhost:3001/image", {
+    fetch("https://fast-sierra-07084.herokuapp.com/image", {
       method: "put",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -1,15 +1,7 @@
 import React from "react";
 
 export default function FaceRecognition({ url, box }) {
-  // var image = document.querySelector(".inputImage");
-  // var width = Number(image.width);
-  // var height = Number(image.height);
-  // var faceBox = box.map((face) => ({
-  //   top: face.top_row * height,
-  //   left: face.left_col * width,
-  //   right: width - face.right_col * width,
-  //   down: height - face.bottom_row * height,
-  // }));
+
   return (
     <div>
       <div style={{ height: "1rem" }}></div>
