@@ -53,7 +53,7 @@ class App extends Component {
 	}
 
 	getProfile = (id) => {
-		fetch(`https://fast-sierra-07084.herokuapp.com/profile/${Number(id)}`)
+		fetch(`https://fast-sierra-07084.herokuapp.com/profile/${Number(id)}`,)
 		.then(response => response.json())
 		.then(user => {
 			const currentUser = {
@@ -75,75 +75,77 @@ class App extends Component {
 
 	onButtonClick = () => {
 		// clarifai request
-		fetch('https://fast-sierra-07084.herokuapp.com/apiRequest', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				imageUrl: this.state.imageInput
-			})
-		})
-		.then(response => response.json())
-		.then((response) => {
-			// if the url we entered does not exist
-			if (response === 'badLink') {
-				this.setState({url: '', box: []});
-				this.setState({error: 'badLink'});
-			// if we have faces
-			} else if (response.outputs[0].data.regions) {
-				// we grab the regions of the faces
-				const facesArray = response.outputs[0].data.regions;
-				// before we display the faces we display the image
-				this.setState({url: this.state.imageInput});
-				// for each face region
-				let coordinatesObject;
-				let translatedCoordinatesObject;
-				facesArray.forEach(face => {
-					coordinatesObject = face.region_info.bounding_box;
-					translatedCoordinatesObject = {
-						top: coordinatesObject.top_row * 100 + '%',
-						left: coordinatesObject.left_col * 100 + '%',
-						bottom: 100 - coordinatesObject.bottom_row * 100 + '%',
-						right: 100 - coordinatesObject.right_col * 100 + '%'
-					};
-					// update the state for the face regions array
-					this.setState(prevState => ({
-						box: [...prevState.box, translatedCoordinatesObject]
-					}));
-					// increment number of entries
-					fetch('https://fast-sierra-07084.herokuapp.com/image', {
-						method: 'PUT',
-						body: JSON.stringify({
-							id: this.state.userData.id
-						}),
-						headers: {
-							'Content-Type': 'application/json' 
-						}
-					})
-					.then(response => response.json())
-					.then(data => {
-						if (data === "success") {
-							this.setState({error: ''})
-							// update entries
-							this.setState(prevState => ({
-								userData: {
-									...prevState.userData,
-									entries: prevState.userData.entries + 1
-								}
-							}));
-						}
-					})
-					.catch(err => {
-						// update fails
-					});
-				});
-			// if we do not have faces in our response
-			} else {
-				this.setState({url: this.state.imageInput, box: []});
-				this.setState({error: ''});
-			}
-		})
+		fetch("https://fast-sierra-07084.herokuapp.com/apiRequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        mode: "no-cors",
+      },
+      body: JSON.stringify({
+        imageUrl: this.state.imageInput,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        // if the url we entered does not exist
+        if (response === "badLink") {
+          this.setState({ url: "", box: [] });
+          this.setState({ error: "badLink" });
+          // if we have faces
+        } else if (response.outputs[0].data.regions) {
+          // we grab the regions of the faces
+          const facesArray = response.outputs[0].data.regions;
+          // before we display the faces we display the image
+          this.setState({ url: this.state.imageInput });
+          // for each face region
+          let coordinatesObject;
+          let translatedCoordinatesObject;
+          facesArray.forEach((face) => {
+            coordinatesObject = face.region_info.bounding_box;
+            translatedCoordinatesObject = {
+              top: coordinatesObject.top_row * 100 + "%",
+              left: coordinatesObject.left_col * 100 + "%",
+              bottom: 100 - coordinatesObject.bottom_row * 100 + "%",
+              right: 100 - coordinatesObject.right_col * 100 + "%",
+            };
+            // update the state for the face regions array
+            this.setState((prevState) => ({
+              box: [...prevState.box, translatedCoordinatesObject],
+            }));
+            // increment number of entries
+            fetch("https://fast-sierra-07084.herokuapp.com/image", {
+              method: "PUT",
+              body: JSON.stringify({
+                id: this.state.userData.id,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+                mode: "no-cors",
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data === "success") {
+                  this.setState({ error: "" });
+                  // update entries
+                  this.setState((prevState) => ({
+                    userData: {
+                      ...prevState.userData,
+                      entries: prevState.userData.entries + 1,
+                    },
+                  }));
+                }
+              })
+              .catch((err) => {
+                // update fails
+              });
+          });
+          // if we do not have faces in our response
+        } else {
+          this.setState({ url: this.state.imageInput, box: [] });
+          this.setState({ error: "" });
+        }
+      });
 	}
 
 	render() {
