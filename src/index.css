@@ -1,52 +1,6 @@
-* {
-    padding: 0%;
-    margin: 0%;
-    font-family: 'Courier New', Courier, monospace;
-
-}
-
-.banner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.back {
-    width: auto;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3rem;
-    background:
-        radial-gradient(circle at 50% 59%, #D2CAAB 3%, #364E27 4%, #364E27 11%, rgba(54, 78, 39, 0) 12%, rgba(54, 78, 39, 0)) 50px 0,
-        radial-gradient(circle at 50% 41%, #364E27 3%, #D2CAAB 4%, #D2CAAB 11%, rgba(210, 202, 171, 0) 12%, rgba(210, 202, 171, 0)) 50px 0,
-        radial-gradient(circle at 50% 59%, #D2CAAB 3%, #364E27 4%, #364E27 11%, rgba(54, 78, 39, 0) 12%, rgba(54, 78, 39, 0)) 0 50px,
-        radial-gradient(circle at 50% 41%, #364E27 3%, #D2CAAB 4%, #D2CAAB 11%, rgba(210, 202, 171, 0) 12%, rgba(210, 202, 171, 0)) 0 50px,
-        radial-gradient(circle at 100% 50%, #D2CAAB 16%, rgba(210, 202, 171, 0) 17%),
-        radial-gradient(circle at 0% 50%, #364E27 16%, rgba(54, 78, 39, 0) 17%),
-        radial-gradient(circle at 100% 50%, #D2CAAB 16%, rgba(210, 202, 171, 0) 17%) 50px 50px,
-        radial-gradient(circle at 0% 50%, #364E27 16%, rgba(54, 78, 39, 0) 17%) 50px 50px;
-    background-color: #63773F;
-    background-size: 100px 100px;
-    box-shadow: 1px 3px 3px 3px rgb(94, 179, 248);
-}
-
-
-.centered {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20rem;
-    height: 1rem;
-}
-
-.boundingBox {
-    position: absolute;
-    box-shadow: 0 0 0 3px #149df2 inset;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    cursor: pointer;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", "Courier";
+  background-image: linear-gradient(89deg, #FF5EDF 0%, #04C8DE 100%);
 }
