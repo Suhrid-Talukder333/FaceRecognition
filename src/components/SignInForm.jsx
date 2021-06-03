@@ -24,7 +24,7 @@ export default class SignInForm extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    fetch("https://fast-sierra-07084.herokuapp.com//signin", {
+    fetch("https://fast-sierra-07084.herokuapp.com/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
