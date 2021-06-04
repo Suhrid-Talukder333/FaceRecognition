@@ -52,7 +52,7 @@ class App extends Component {
   };
 
   getProfile = (id) => {
-    fetch(`https://fast-sierra-07084.herokuapp.com/profile/${Number(id)}`)
+    fetch(`https://cors-anywhere.herokuapp.com/https://fast-sierra-07084.herokuapp.com/profile/${Number(id)}`)
       .then((response) => response.json())
       .then((user) => {
         const currentUser = {
@@ -74,7 +74,7 @@ class App extends Component {
 
   onButtonClick = () => {
     // clarifai request
-    fetch("https://fast-sierra-07084.herokuapp.com/apiRequest", {
+    fetch("https://cors-anywhere.herokuapp.com/https://fast-sierra-07084.herokuapp.com/apiRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
